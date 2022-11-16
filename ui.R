@@ -8,46 +8,46 @@ dashboardPage(skin = "black",
                 useShinyjs(),
                   fluidRow(
                     column(3,
-                           numericInput("nPop", "Tamanho da população:", value = 1000, min = 100, max = 200000000),
+                           numericInput("nPop", "Tamanho da população:", value = 10000, min = 100, max = 200000000),
                            #selectInput("tipoPop", "Tipo da população:", choices = c("Jovem", "Adulta","Idosa")),
-                           numericInput("nInfec", "Número de infectados iniciais:", value = 3, min = 1, max = 100000),
-                           numericInput("nExpos", "Número de expostos iniciais:", value = 19, min = 1, max = 100000),
-                           numericInput("nEncAgt", "Número máximo de encontros por agente:", value = 10, min = 1, max = 100),
-                           numericInput("nDiasIncub", "Período de incubação em dias:", value = 5, min = 1, max = 100000),
-                           numericInput("nDiasInfec", "Período de infecção em dias:", value = 15, min = 1, max = 100000)
+                           numericInput("nInfec", "Número de infectados iniciais:", value = 2, min = 1, max = 100000),
+                           numericInput("nExpos", "Número de expostos iniciais:", value = 11, min = 1, max = 100000),
+                           numericInput("nEncAgt", "Número máximo de encontros por agente:", value = 12, min = 1, max = 100),
+                           numericInput("nDiasIncub", "Período de incubação em dias:", value = 3, min = 1, max = 100000),
+                           numericInput("nDiasInfec", "Período de infecção em dias:", value = 10, min = 1, max = 100000)
                     ),
                      column(3,
-                           sliderInput("percJovem", "Percentual de Jovens:", min = 1, max = 98, value = 33, step = 1),
-                           numericInput("txExposJovem", "Taxa de exposição dos jovens:", value = 0.14, min = 0.01, max = 1),
-                           numericInput("txInfecJovem", "Taxa de infecção dos jovens:", value = 0.1, min = 0.01, max = 1),
-                           numericInput("txMortJovem", "Taxa de mortalidade dos jovens:", value = 0.01, min = 0.01, max = 1),
+                           sliderInput("percJovem", "Percentual de Jovens:", min = 1, max = 98, value = 43, step = 1),
+                           numericInput("txExposJovem", "Taxa de exposição dos jovens:", value = 0.4, min = 0.01, max = 1),
+                           numericInput("txInfecJovem", "Taxa de infecção dos jovens:", value = 0.02, min = 0.01, max = 1),
+                           numericInput("txMortJovem", "Taxa de mortalidade dos jovens:", value = 0.001, min = 0.001, max = 0.05),
                            sliderInput("percInfecGrave" , "Percentual de casos graves:" ,
-                                       min  =  1 , max  =100 , value  = 30
+                                       min  =  1 , max  =100 , value  = 5
                            ),
                            sliderInput("diasSimulados" , "Dias de simulação:" ,
-                                       min  =  1 , max  =100 , value  = 10
+                                       min  =  1 , max  =100 , value  = 30
                            )
                     ),
                     column(3,
-                           sliderInput("percAdulto", "Percentual de adultos:", min = 1, max = 100, value = 60, step = 1),
-                           numericInput("txExposAdulto", "Taxa de exposição dos adutos:", value = 0.15, min = 0.01, max = 1),
-                           numericInput("txInfecAdulto", "Taxa de infecção dos adutos:", value = 0.11, min = 0.01, max = 1),
-                           numericInput("txMortAdulto", "Taxa de mortalidade dos adutos:", value = 0.01, min = 0.01, max = 1),
+                           sliderInput("percAdulto", "Percentual de adultos:", min = 1, max = 100, value = 43, step = 1),
+                           numericInput("txExposAdulto", "Taxa de exposição dos adutos:", value = 0.7, min = 0.01, max = 1),
+                           numericInput("txInfecAdulto", "Taxa de infecção dos adutos:", value = 0.07, min = 0.01, max = 1),
+                           numericInput("txMortAdulto", "Taxa de mortalidade dos adutos:", value = 0.002, min = 0.001, max = 0.05),
                            numericInput("vlAmb" , "Valor médio para casos leves em R$:" ,
-                                        min  =  1 , max  =20000 , value  = 200
+                                        min  =  1 , max  =20000 , value  = 50
                            ),
                            br(),
                            sliderInput("rodadas" , "Número de Rodadas:" ,
-                                       min  =  10 , max  = 1000 , value  = 10
+                                       min  =  10 , max  = 1000 , value  = 200
                            )
                     ),
                     column(3,
                            sliderInput("percIdoso", "Percentual de idosos:", min = 1, max = 100, value = 34, step = 1),
-                           numericInput("txExposIdoso", "Taxa de exposição dos idosos:", value = 0.16, min = 0.01, max = 1),
-                           numericInput("txInfecIdoso", "Taxa de infecção dos idosos:", value = 0.12, min = 0.01, max = 1),
-                           numericInput("txMortIdoso", "Taxa de mortalidade dos idosos:", value = 0.03, min = 0.01, max = 1),
+                           numericInput("txExposIdoso", "Taxa de exposição dos idosos:", value = 0.20, min = 0.01, max = 1),
+                           numericInput("txInfecIdoso", "Taxa de infecção dos idosos:", value = 0.10, min = 0.01, max = 1),
+                           numericInput("txMortIdoso", "Taxa de mortalidade dos idosos:", value = 0.005, min = 0.001, max = 0.1),
                            numericInput("vlInt" , "Valor médio para casos graves em R$:" ,
-                                        min  =  1 , max  =20000 , value  = 2000
+                                        min  =  1 , max  =20000 , value  = 1588
                            ),
                            br(),
                            br(),
