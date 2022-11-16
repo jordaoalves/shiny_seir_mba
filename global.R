@@ -15,8 +15,10 @@ library(future)
 
 
 source("gerar_pop_inicial.R")
-source("func_vivo_morto.R")
+source("func_sobrevivencia.R")
 source("modelo.R")
-
-
+source("num_summary.R")
+source("cv.R")
+source("num_mode.R")
+source("num_format.R")
 

@@ -87,13 +87,14 @@ observeEvent(input$botao, {
     SEIRDfI_rodadas[,stringr::str_detect(colnames(SEIRDfI_rodadas), 'fI')] %>% 
     filter(row_number()==n()) %>% 
     gather() %>% 
-    mutate(fI_leve = round(value * (1-0.3), digits = 0),
-           fI_grave = round(value * (0.3), digits = 0),
+    mutate(fI_leve = round(value * ((100-input$percInfecGrave)/100), digits = 0),
+           fI_grave = round(value * (input$percInfecGrave/100), digits = 0),
            value = fI_leve + fI_grave,
-           fI_leve_vl = fI_leve * 200,
-           fI_grave_vl = fI_grave * 500,
+           fI_leve_vl = fI_leve * input$vlAmb,
+           fI_grave_vl = fI_grave * input$vlInt,
            fI_total_vl = fI_leve_vl + fI_grave_vl
     )
+  
   
   
   SEIRD.S <<- 
@@ -196,7 +197,7 @@ observeEvent(input$botao, {
       geom_line(size = 0.75,col='#68177B') + 
       geom_ribbon(aes(ymin = minimo, ymax = maximo), alpha = 0.1) + 
       theme_classic() +
-      labs(title = "Valor médio e seus limites dos número de suscetíveis por dia") +
+      labs(title = "Valor médio e seus limites dos números de suscetíveis por dia") +
       xlab("Dia simulado") +
       ylab("Frequência")
   })
@@ -208,7 +209,7 @@ observeEvent(input$botao, {
       geom_line(size = 0.75,col='#E98246') + 
       geom_ribbon(aes(ymin = minimo, ymax = maximo), alpha = 0.1) + 
       theme_classic() +
-      labs(title = "Valor médio e seus limites dos número de expostos por dia") +
+      labs(title = "Valor médio e seus limites dos números de expostos por dia") +
       xlab("Dia simulado") +
       ylab("Frequência")
   })
@@ -220,7 +221,7 @@ observeEvent(input$botao, {
       geom_line(size = 0.75,col='#A1BCEB') + 
       geom_ribbon(aes(ymin = minimo, ymax = maximo), alpha = 0.1) + 
       theme_classic() +
-      labs(title = "Valor médio e seus limites dos número de infectados por dia") +
+      labs(title = "Valor médio e seus limites dos números de infectados por dia") +
       xlab("Dia simulado") +
       ylab("Frequência")
   })
@@ -232,7 +233,7 @@ observeEvent(input$botao, {
       geom_line(size = 0.75,col='#79AB14') + 
       geom_ribbon(aes(ymin = minimo, ymax = maximo), alpha = 0.1) + 
       theme_classic() +
-      labs(title = "Valor médio e seus limites dos número de recuperados por dia") +
+      labs(title = "Valor médio e seus limites dos números de recuperados por dia") +
       xlab("Dia simulado") +
       ylab("Frequência")
   })
@@ -245,7 +246,7 @@ observeEvent(input$botao, {
       geom_line(size = 0.75,col='#000000') + 
       geom_ribbon(aes(ymin = minimo, ymax = maximo), alpha = 0.1) + 
       theme_classic() +
-      labs(title = "Valor médio e seus limites dos número de mortos por dia") +
+      labs(title = "Valor médio e seus limites dos números de mortos por dia") +
       xlab("Dia simulado") +
       ylab("Frequência")
 
@@ -277,6 +278,29 @@ observeEvent(input$botao, {
       geom_vline(aes(xintercept = mean(fI_total_vl)), linetype = "dashed", size = 0.6) +
       theme_classic()
   })
+  
+  output$summary <- renderReactable({
+    
+    infectados_acumulados %>% 
+      select(Infectados = value,
+             Despesas = fI_total_vl) %>% 
+      df_summary() %>%
+      mutate(across(where(is.numeric), num_format)) %>% 
+    reactable::reactable(
+                         defaultColDef = colDef(
+                           header = function(value) gsub(".", " ", value, fixed = TRUE),
+                           cell = function(value) format(value, nsmall = 3),
+                           align = "center",
+                           minWidth = 100,
+                           headerStyle = list(background = "#A52A2A")
+                         ),
+                         bordered = TRUE,
+                         highlight = TRUE,
+                         defaultPageSize = 13
+    )
+    
+  })
+  
   
 })
 

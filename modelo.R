@@ -82,7 +82,7 @@ modelo <- function( pop_inicial,
     
     # Atualizaçao de há quanto tempo estão infectados e suas mudanças de estado para recuperado ou morto
     
-    pop_inicial = func_vivo_morto(pop_inicial, n_dias_infeccao)
+    pop_inicial = func_sobrevivencia(pop_inicial, n_dias_infeccao)
     
     
     # Pegue aqueles que foram recuperados e aumenta o tempo

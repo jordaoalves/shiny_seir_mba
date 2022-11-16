@@ -21,7 +21,7 @@ dashboardPage(skin = "black",
                            numericInput("txExposJovem", "Taxa de exposição dos jovens:", value = 0.14, min = 0.01, max = 1),
                            numericInput("txInfecJovem", "Taxa de infecção dos jovens:", value = 0.1, min = 0.01, max = 1),
                            numericInput("txMortJovem", "Taxa de mortalidade dos jovens:", value = 0.01, min = 0.01, max = 1),
-                           sliderInput("nInfecGrave" , "Percentual de casos graves:" ,
+                           sliderInput("percInfecGrave" , "Percentual de casos graves:" ,
                                        min  =  1 , max  =100 , value  = 30
                            ),
                            sliderInput("diasSimulados" , "Dias de simulação:" ,
@@ -33,8 +33,8 @@ dashboardPage(skin = "black",
                            numericInput("txExposAdulto", "Taxa de exposição dos adutos:", value = 0.15, min = 0.01, max = 1),
                            numericInput("txInfecAdulto", "Taxa de infecção dos adutos:", value = 0.11, min = 0.01, max = 1),
                            numericInput("txMortAdulto", "Taxa de mortalidade dos adutos:", value = 0.01, min = 0.01, max = 1),
-                           numericInput("vlAmb" , "Valor médio para casos graves em R$:" ,
-                                        min  =  1 , max  =20000 , value  = 2000
+                           numericInput("vlAmb" , "Valor médio para casos leves em R$:" ,
+                                        min  =  1 , max  =20000 , value  = 200
                            ),
                            br(),
                            sliderInput("rodadas" , "Número de Rodadas:" ,
@@ -46,8 +46,8 @@ dashboardPage(skin = "black",
                            numericInput("txExposIdoso", "Taxa de exposição dos idosos:", value = 0.16, min = 0.01, max = 1),
                            numericInput("txInfecIdoso", "Taxa de infecção dos idosos:", value = 0.12, min = 0.01, max = 1),
                            numericInput("txMortIdoso", "Taxa de mortalidade dos idosos:", value = 0.03, min = 0.01, max = 1),
-                           numericInput("vlInt" , "Valor médio para casos Leves em R$:" ,
-                                        min  =  1 , max  =20000 , value  = 200
+                           numericInput("vlInt" , "Valor médio para casos graves em R$:" ,
+                                        min  =  1 , max  =20000 , value  = 2000
                            ),
                            br(),
                            br(),
@@ -85,7 +85,7 @@ dashboardPage(skin = "black",
                                      tabPanel("E(MC(SEIR))", plotlyOutput("plot", height = "570px")),
                                      tabPanel("Número de infectados por rodada", plotlyOutput("plotInfectados", height = "570px")),
                                      tabPanel("Despesas médico-hospitalares por rodada", plotlyOutput("plotDespesas", height = "570px")),
-                                     tabPanel("Sumário", ),
+                                     tabPanel("Sumário", reactableOutput("summary")),
                                      
                                      tabPanel("Sobre",
                                               fluidPage(
@@ -106,8 +106,8 @@ dashboardPage(skin = "black",
                                                        p("José Vilton Costa - DDCA/UFRN"),
                                                        p("Marcus Alexandre Nunes - DEST/UFRN"),
                                                        br(),
-                                                       h4("Github:")#,
-                                                       #p(a("https://github.com/jordaoalves/IA---S2", href = 'https://github.com/jordaoalves/IA---S2' ))
+                                                       h4("Github:"),
+                                                       p(a("https://github.com/jordaoalves/shiny_seir_mba", href = 'https://github.com/jordaoalves/shiny_seir_mba' ))
                                                        
                                                        
                                                        
