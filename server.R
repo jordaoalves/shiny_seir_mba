@@ -65,12 +65,9 @@ observeEvent(input$botao, {
   diasSimulados <<- input$diasSimulados
   nMaxEncAgt <<- input$nEncAgt
   n_dias_infeccao <<- input$nDiasInfec
-  n_dias_incubacao <<- input$nDiasIncub
- 
+  n_dias_incubacao <<- input$nDiasIncub 
   
   plan(multisession, workers = future::availableCores())
-  
-  furrr::furrr_options(globals = TRUE, packages = NULL, seed = TRUE, lazy = FALSE, scheduling = 1)
   
   SEIRDfI_rodadas <<- furrr::future_map_dfc(1:input$rodadas, function(x){
     modelo(pop_inicial = pop_inicial, 
@@ -78,7 +75,9 @@ observeEvent(input$botao, {
            n_dias_infeccao = n_dias_infeccao,
            n_dias_incubacao = n_dias_incubacao,
            rodada = x)
-  })
+  },
+  .options =   furrr::furrr_options(seed = TRUE)
+  )
   
   SEIR_rodadas <<- 
     SEIRDfI_rodadas[,!stringr::str_detect(colnames(SEIRDfI_rodadas), 'fI')]  
@@ -95,9 +94,7 @@ observeEvent(input$botao, {
            fI_total_vl = fI_leve_vl + fI_grave_vl
     )
   
-  
-  
-  SEIRD.S <<- 
+ SEIRD.S <<- 
   SEIR_rodadas %>%
     tidyr::gather() %>%
     filter(stringr::str_detect(key, 'S') ) %>%
